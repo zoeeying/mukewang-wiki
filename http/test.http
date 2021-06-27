@@ -18,3 +18,7 @@ Content-Type: application/x-www-form-urlencoded
 name=Zoe
 
 ###
+
+
+GET http://localhost:8080/test/list
+Accept: application/json
