@@ -52,9 +52,27 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, onMounted, ref, reactive, toRef } from 'vue'
+  import axios from 'axios'
 
   export default defineComponent({
     name: 'Home',
-  });
+    setup() {
+      // 使用ref和reactive实现数据绑定
+      const ebooks = ref() // 响应式变量，最后需要return出去
+      const ebooks2 = reactive({ books: [] })
+
+      onMounted(() => {
+        axios.get('http://localhost:8080/ebook/list?name=入门').then(res => {
+          ebooks.value = res.data.content
+          ebooks2.books = res.data.content
+        })
+      })
+
+      return {
+        ebooks,
+        ebooks2: toRef(ebooks2, 'books') // 转换成响应式变量
+      }
+    }
+  })
 </script>
