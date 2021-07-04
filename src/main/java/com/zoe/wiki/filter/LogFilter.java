@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+// 添加@Component注解，这样Spring Boot就会自动去扫描LogFilter类，容器就会拿到这个过滤器了
 @Component
 public class LogFilter implements Filter {
 
@@ -27,6 +28,7 @@ public class LogFilter implements Filter {
         LOG.info("远程地址: {}", request.getRemoteAddr());
 
         long startTime = System.currentTimeMillis();
+        // 通过链来调用业务方法
         filterChain.doFilter(servletRequest, servletResponse);
         LOG.info("------------- LogFilter结束耗时: {} ms -------------", System.currentTimeMillis() - startTime);
     }
