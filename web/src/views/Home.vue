@@ -86,7 +86,7 @@
       const ebooks2 = reactive({ books: [] })
 
       onMounted(() => {
-        axios.get('http://localhost:8080/ebook/list').then(res => {
+        axios.get('/ebook/list').then(res => {
           ebooks.value = res.data.content
           ebooks2.books = res.data.content
         })
