@@ -1,15 +1,15 @@
 <template>
   <a-layout>
-    <WikiHeader />
+    <wiki-header />
     <router-view />
-    <WikiFooter />
+    <wiki-footer />
   </a-layout>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import WikiHeader from '@/components/WikiHeader.vue'
-  import WikiFooter from '@/components/WikiFooter.vue'
+  import WikiHeader from '@/components/wiki-header.vue'
+  import WikiFooter from '@/components/wiki-footer.vue'
 
   export default defineComponent({
     name: 'App',
