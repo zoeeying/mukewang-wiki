@@ -83,18 +83,19 @@
 
       // 使用ref和reactive实现数据绑定
       const ebooks = ref() // 响应式变量，最后需要return出去
-      const ebooks2 = reactive({ books: [] })
+      // const ebooks2 = reactive({ books: [] })
 
       onMounted(() => {
-        axios.get('/ebook/list').then(res => {
-          ebooks.value = res.data.content
-          ebooks2.books = res.data.content
+        const params = { page:1, size: 1000 }
+        axios.get('/ebook/list', { params }).then(res => {
+          ebooks.value = res.data.content.list
+          // ebooks2.books = res.data.content
         })
       })
 
       return {
         ebooks,
-        ebooks2: toRef(ebooks2, 'books'), // 转换成响应式变量
+        // ebooks2: toRef(ebooks2, 'books'), // 转换成响应式变量
         actions,
       }
     }
