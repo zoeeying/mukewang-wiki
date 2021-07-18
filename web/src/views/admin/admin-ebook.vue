@@ -10,7 +10,7 @@
         @change="onTableChange"
       >
         <template #cover="{ text: cover }">
-          <img :src="cover" alt="avatar" v-if="cover" :style="{ width: 50 }">
+          <img :src="cover" alt="avatar" v-if="cover" :style="{ width: '50px' }">
         </template>
         <template v-slot:action="{ text, record }">
           <a-space size="small">
@@ -37,7 +37,7 @@
       const ebooks = ref()
       const pagination = ref({
         current: 1,
-        pageSize: 2,
+        pageSize: 4,
         total: 0
       })
       const loading = ref(false)
@@ -83,13 +83,13 @@
       // 数据查询
       const onQuery = async (params: any) => {
         loading.value = true
-        const res = await axios.get('/ebook/list', params) 
+        const res = await axios.get('/ebook/list', { params }) 
         loading.value = false
-        const data = res.data
-        ebooks.value = data.content
+        ebooks.value = res.data.content.list
 
         // 重置分页
         pagination.value.current = params.page
+        pagination.value.total = res.data.content.total
       }
 
       // 表格页码变更
@@ -101,7 +101,10 @@
       }
 
       onMounted(() => {
-        onQuery({})
+        onQuery({
+          page: 1,
+          size: pagination.value.pageSize
+        })
       })
 
       return {
