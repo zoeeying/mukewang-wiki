@@ -12,9 +12,9 @@
         <template #cover="{ text: cover }">
           <img :src="cover" alt="avatar" v-if="cover" :style="{ width: '50px' }">
         </template>
-        <template v-slot:action="{ text, record }">
+        <template v-slot:action="{ record }">
           <a-space size="small">
-            <a-button type="primary">
+            <a-button type="primary" @click="edit(record)">
               编辑
             </a-button>
             <a-button type="danger">
@@ -25,6 +25,25 @@
       </a-table>
     </a-layout-content>
   </a-layout>
+  <a-modal title="电子书表单" v-model:visible="modalVisible" :confirmLoading="modalLoading" @ok="onModalOk">
+    <a-form :model="ebook" :label-col="{ span: 6 }">
+      <a-form-item label="封面">
+        <a-input v-model:value="ebook.cover" />
+      </a-form-item>
+      <a-form-item label="名称">
+        <a-input v-model:value="ebook.name" />
+      </a-form-item>
+      <a-form-item label="分类一">
+        <a-input v-model:value="ebook.category1Id" />
+      </a-form-item>
+      <a-form-item label="分类二">
+        <a-input v-model:value="ebook.category2Id" />
+      </a-form-item>
+      <a-form-item label="描述">
+        <a-input v-model:value="ebook.desc" type="text" />
+      </a-form-item>
+    </a-form>
+  </a-modal>
 </template>
 
 <script lang="ts">
@@ -99,6 +118,22 @@
           size: pagination.pageSize
         })
       }
+       
+      const modalVisible = ref(false)
+      const modalLoading = ref(false)
+      const ebook = ref({})
+      const onModalOk = () => {
+        modalLoading.value = true
+        setTimeout(() => {
+          modalVisible.value = false
+          modalLoading.value = false
+        } ,2000)
+      }
+
+      const edit = (record: any) => {
+        modalVisible.value = true
+        ebook.value = record
+      }
 
       onMounted(() => {
         onQuery({
@@ -112,6 +147,11 @@
         pagination,
         columns,
         loading,
+        edit,
+        ebook,
+        modalVisible,
+        modalLoading,
+        onModalOk,
         onTableChange
       }
     },
