@@ -20,4 +20,9 @@ public class DemoController {
     public List<Demo> list(){
         return demoService.list();
     }
+
+    @GetMapping("/one")
+    public Demo demo(){
+        return demoService.demo();
+    }
 }

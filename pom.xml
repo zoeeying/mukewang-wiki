@@ -45,7 +45,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.22</version>
         </dependency>
 
         <!-- Spring Boot自带的AOP依赖 -->

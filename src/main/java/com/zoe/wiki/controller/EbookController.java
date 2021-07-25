@@ -1,13 +1,12 @@
 package com.zoe.wiki.controller;
 
-import com.zoe.wiki.req.EbookReq;
+import com.zoe.wiki.req.EbookQueryReq;
+import com.zoe.wiki.req.EbookSaveReq;
 import com.zoe.wiki.resp.CommonResp;
-import com.zoe.wiki.resp.EbookResp;
+import com.zoe.wiki.resp.EbookQueryResp;
 import com.zoe.wiki.resp.PageResp;
 import com.zoe.wiki.service.EbookService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -18,10 +17,21 @@ public class EbookController {
     private EbookService ebookService;
 
     @GetMapping("/list")
-    public CommonResp list(EbookReq req){
-        CommonResp<PageResp<EbookResp>> resp = new CommonResp<>();
-        PageResp<EbookResp> list = ebookService.list(req);
-        resp.setContent(list);
+    public CommonResp list(EbookQueryReq req){
+        CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
+        PageResp<EbookQueryResp> ebookList = ebookService.list(req);
+        resp.setContent(ebookList);
+        return resp;
+    }
+
+    /**
+     * RequestBody注解表示接收json方式的POST提交
+     * 如果请求的Content-Type是application/x-www-form-urlencoded，那么不需要加任何注解
+     */
+    @PostMapping("/save")
+    public CommonResp save(@RequestBody EbookSaveReq req){
+        CommonResp resp = new CommonResp();
+        ebookService.save(req);
         return resp;
     }
 }

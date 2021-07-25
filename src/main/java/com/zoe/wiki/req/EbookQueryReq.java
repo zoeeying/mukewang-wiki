@@ -1,6 +1,6 @@
 package com.zoe.wiki.req;
 
-public class EbookReq extends PageReq {
+public class EbookQueryReq extends PageReq {
     private Long id;
 
     private String name;

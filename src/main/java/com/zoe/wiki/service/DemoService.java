@@ -14,8 +14,13 @@ public class DemoService {
     @Resource
     private DemoMapper demoMapper;
 
+    // 查表中所有数据
     public List<Demo> list(){
-        // 查表中所有数据
-        return demoMapper.selectByExample(null);
+         return demoMapper.selectByExample(null);
+    }
+
+    // 查表中单个数据
+    public Demo demo(){
+        return demoMapper.selectByPrimaryKey(Long.valueOf(1));
     }
 }

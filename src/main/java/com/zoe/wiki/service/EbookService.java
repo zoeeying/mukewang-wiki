@@ -5,8 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.zoe.wiki.domain.Ebook;
 import com.zoe.wiki.domain.EbookExample;
 import com.zoe.wiki.mapper.EbookMapper;
-import com.zoe.wiki.req.EbookReq;
-import com.zoe.wiki.resp.EbookResp;
+import com.zoe.wiki.req.EbookQueryReq;
+import com.zoe.wiki.req.EbookSaveReq;
+import com.zoe.wiki.resp.EbookQueryResp;
 import com.zoe.wiki.resp.PageResp;
 import com.zoe.wiki.utils.CopyUtil;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
 
-    public PageResp<EbookResp> list(EbookReq req){
+    public PageResp<EbookQueryResp> list(EbookQueryReq req){
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
         // 动态SQL：如果传递了请求参数name，就按照name进行模糊查询，否则就返回全部数据
@@ -43,11 +44,24 @@ public class EbookService {
 
         // List<Ebook>需要转换成List<EbookResp>，再返回controller，需要使用循环
         // 具体的实现细节封装在了CopyUtil中
-        List<EbookResp> list = CopyUtil.copyList(ebookList, EbookResp.class);
+        List<EbookQueryResp> ebookRespList = CopyUtil.copyList(ebookList, EbookQueryResp.class);
 
-        PageResp<EbookResp> pageResp = new PageResp();
+        PageResp<EbookQueryResp> pageResp = new PageResp();
         pageResp.setTotal(pageInfo.getTotal());
-        pageResp.setList(list);
+        pageResp.setList(ebookRespList);
         return pageResp;
+    }
+
+    // 保存接口
+    public void save(EbookSaveReq req){
+        // 把请求参数转换成实体
+        Ebook ebook = CopyUtil.copy(req, Ebook.class);
+        if(ObjectUtils.isEmpty(req.getId())){
+            // 新增
+            ebookMapper.insert(ebook);
+        } else {
+            // 修改
+            ebookMapper.updateByPrimaryKey(ebook);
+        }
     }
 }

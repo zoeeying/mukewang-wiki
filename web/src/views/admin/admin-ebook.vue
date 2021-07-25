@@ -122,12 +122,20 @@
       const modalVisible = ref(false)
       const modalLoading = ref(false)
       const ebook = ref({})
+
       const onModalOk = () => {
         modalLoading.value = true
-        setTimeout(() => {
-          modalVisible.value = false
-          modalLoading.value = false
-        } ,2000)
+        axios.post("ebook/save", ebook.value).then(res => {
+          const data = res.data
+          if(data.success) {
+            modalVisible.value = false
+            modalLoading.value = false
+             onQuery({
+              page: pagination.value.current,
+              size: pagination.value.pageSize
+            })
+          }
+        })
       }
 
       const edit = (record: any) => {
