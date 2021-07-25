@@ -20,9 +20,14 @@
             <a-button type="primary" @click="edit(record)">
               编辑
             </a-button>
-            <a-button type="danger">
-              删除
-            </a-button>
+            <a-popconfirm
+              title="确定删除吗？"
+              okText="确定"
+              cancelText="取消"
+              @confirm="onDelete(record.id)"
+            >
+              <a-button type="danger">删除</a-button>
+            </a-popconfirm>
           </a-space>
         </template>
       </a-table>
@@ -43,7 +48,7 @@
         <a-input v-model:value="ebook.category2Id" />
       </a-form-item>
       <a-form-item label="描述">
-        <a-input v-model:value="ebook.desc" type="text" />
+        <a-input v-model:value="ebook.description" type="text" />
       </a-form-item>
     </a-form>
   </a-modal>
@@ -151,6 +156,19 @@
         ebook.value = {}
       }
 
+      // delete是关键字，不能作为方法名
+      const onDelete = (id: number) => {
+        axios.delete(`ebook/delete/${id}`).then(res => {
+          const data = res.data
+          if(data.success) {
+             onQuery({
+              page: 1,
+              size: pagination.value.pageSize
+            })
+          }
+        })
+      }
+
       onMounted(() => {
         onQuery({
           page: 1,
@@ -165,6 +183,7 @@
         loading,
         edit,
         add,
+        onDelete,
         ebook,
         modalVisible,
         modalLoading,

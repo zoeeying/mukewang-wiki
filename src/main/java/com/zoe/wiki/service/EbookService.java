@@ -69,4 +69,9 @@ public class EbookService {
             ebookMapper.updateByPrimaryKey(ebook);
         }
     }
+
+    // 删除接口
+    public void delete(Long id){
+        ebookMapper.deleteByPrimaryKey(id);
+    }
 }
