@@ -17,6 +17,7 @@ public class CopyUtil {
         }
         T obj = null;
         try {
+            // clazz是目标类，然后得到实例对象
             obj = clazz.newInstance();
         } catch (Exception e) {
             e.printStackTrace();

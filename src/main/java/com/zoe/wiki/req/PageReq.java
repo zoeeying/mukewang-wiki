@@ -1,13 +1,13 @@
 package com.zoe.wiki.req;
 
 import javax.validation.constraints.Max;
-import javax.validation.constraints.Null;
+import javax.validation.constraints.NotNull;
 
 public class PageReq {
-    @Null(message = "page不能为空")
+    @NotNull(message = "page不能为空")
     private int page;
 
-    @Null(message = "size不能为空")
+    @NotNull(message = "size不能为空")
     @Max(value = 1000, message = "size不能超过1000")
     private int size;
 
