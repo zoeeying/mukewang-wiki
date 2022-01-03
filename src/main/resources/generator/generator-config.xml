@@ -40,7 +40,8 @@
                              targetPackage="com.zoe.wiki.mapper"
                              type="XMLMAPPER"/>
 
-        <table tableName="demo" domainObjectName="Demo"/>
-        <!-- <table tableName="test"/> -->
+        <!-- domainObjectName可以省略 -->
+        <!-- <table tableName="demo" domainObjectName="Demo"/> -->
+        <table tableName="ebook"/>
     </context>
 </generatorConfiguration>
