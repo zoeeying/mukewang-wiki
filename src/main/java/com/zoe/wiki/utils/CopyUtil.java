@@ -8,9 +8,7 @@ import java.util.List;
 
 public class CopyUtil {
 
-    /**
-     * 单体复制
-     */
+    // 单体对象复制
     public static <T> T copy(Object source, Class<T> clazz) {
         if (source == null) {
             return null;
@@ -27,9 +25,7 @@ public class CopyUtil {
         return obj;
     }
 
-    /**
-     * 列表复制
-     */
+    // 对象列表复制
     public static <T> List<T> copyList(List source, Class<T> clazz) {
         List<T> target = new ArrayList<>();
         if (!CollectionUtils.isEmpty(source)){

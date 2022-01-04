@@ -38,6 +38,7 @@ public class EbookService {
         EbookExample.Criteria criteria = ebookExample.createCriteria();
         // 动态SQL：如果传递了请求参数name，就按照name进行模糊查询，否则就返回全部数据
         if(!ObjectUtils.isEmpty(req.getName())) {
+            // %表示左匹配、右匹配
             criteria.andNameLike("%" + req.getName() + "%");
         }
         // 只对下面第一个select语句起作用
@@ -48,7 +49,7 @@ public class EbookService {
         LOG.info("总行数: {}", pageInfo.getTotal());
         LOG.info("总页数: {}", pageInfo.getPages());
 
-        // List<Ebook>需要转换成List<EbookQueryResp>，再返回controller，需要使用循环
+        // List<Ebook>需要转换成List<EbookQueryResp>，需要使用循环
         List<EbookQueryResp> ebookRespList = new ArrayList<>();
         for(Ebook ebook : ebookList){
             EbookQueryResp ebookResp = new EbookQueryResp();
