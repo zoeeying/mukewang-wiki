@@ -9,7 +9,7 @@ import com.zoe.wiki.req.EbookQueryReq;
 import com.zoe.wiki.req.EbookSaveReq;
 import com.zoe.wiki.resp.EbookQueryResp;
 import com.zoe.wiki.resp.PageResp;
-import com.zoe.wiki.utils.CopyUtil;
+import com.zoe.wiki.utils.CopyUtils;
 import com.zoe.wiki.utils.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +58,7 @@ public class EbookService {
             ebookRespList.add(ebookResp);
         }
         // CopyUtil中封装了上面的循环拷贝操作
-        // List<EbookQueryResp> ebookRespList = CopyUtil.copyList(ebookList, EbookQueryResp.class);
+        // List<EbookQueryResp> ebookRespList = CopyUtils.copyList(ebookList, EbookQueryResp.class);
 
         PageResp<EbookQueryResp> pageResp = new PageResp();
         pageResp.setTotal(pageInfo.getTotal());
@@ -69,7 +69,7 @@ public class EbookService {
     // 保存接口
     public void save(EbookSaveReq req){
         // 把请求参数转换成实体
-        Ebook ebook = CopyUtil.copy(req, Ebook.class);
+        Ebook ebook = CopyUtils.copy(req, Ebook.class);
         if(ObjectUtils.isEmpty(req.getId())){
             // 新增
             ebook.setId(snowFlake.nextId());
