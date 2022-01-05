@@ -28,7 +28,8 @@ public class LogAspect {
      * com.zoe.*.controller中的所有Controller中的所有方法（包括参数），都会被AOP拦截到
      */
     @Pointcut("execution(public * com.zoe.*.controller..*Controller.*(..))")
-    public void controllerPointcut() {}
+    public void controllerPointcut() {
+    }
 
     /**
      * 前置通知
@@ -56,7 +57,7 @@ public class LogAspect {
         Object[] args = joinPoint.getArgs();
         // LOG.info("请求参数: {}", JSONObject.toJSONString(args));
 
-        Object[] arguments  = new Object[args.length];
+        Object[] arguments = new Object[args.length];
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof ServletRequest
                     || args[i] instanceof ServletResponse
@@ -66,7 +67,7 @@ public class LogAspect {
             arguments[i] = args[i];
         }
         // 排除字段，敏感字段（密码等）或太长的字段（文件内容或者富文本等）不显示
-        String[] excludeProperties = { "password", "file" };
+        String[] excludeProperties = {"password", "file"};
         PropertyPreFilters filters = new PropertyPreFilters();
         PropertyPreFilters.MySimplePropertyPreFilter excludefilter = filters.addFilter();
         excludefilter.addExcludes(excludeProperties);
@@ -83,7 +84,7 @@ public class LogAspect {
         // 执行业务内容
         Object result = proceedingJoinPoint.proceed();
         // 打印返回结果，同时排除字段，敏感字段或太长的字段不显示
-        String[] excludeProperties = { "password", "file" };
+        String[] excludeProperties = {"password", "file"};
         PropertyPreFilters filters = new PropertyPreFilters();
         PropertyPreFilters.MySimplePropertyPreFilter excludefilter = filters.addFilter();
         excludefilter.addExcludes(excludeProperties);

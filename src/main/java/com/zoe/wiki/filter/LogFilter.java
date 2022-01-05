@@ -27,9 +27,12 @@
 //        LOG.info("请求地址: {} {}", request.getRequestURL().toString(), request.getMethod());
 //        LOG.info("远程地址: {}", request.getRemoteAddr());
 //
+//        // 记录开始时间
 //        long startTime = System.currentTimeMillis();
-//        // 通过链来调用业务方法
+//
+//        // 执行后面的过滤器，如果后面没有过滤器，就执行业务代码
 //        filterChain.doFilter(servletRequest, servletResponse);
+//
 //        LOG.info("------------- LogFilter结束耗时: {} ms -------------", System.currentTimeMillis() - startTime);
 //    }
 //}
