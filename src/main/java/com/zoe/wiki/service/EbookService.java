@@ -67,7 +67,6 @@ public class EbookService {
         return pageResp;
     }
 
-    // 保存接口
     public void save(EbookSaveReq req){
         // 把请求参数转换成实体
         Ebook ebook = CopyUtils.copy(req, Ebook.class);
@@ -76,7 +75,7 @@ public class EbookService {
             ebook.setId(snowFlake.nextId());
             ebookMapper.insert(ebook);
         } else {
-            // 修改
+            // 更新
             ebookMapper.updateByPrimaryKey(ebook);
         }
     }
