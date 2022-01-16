@@ -30,7 +30,7 @@ public class EbookController {
      * 如果请求的Content-Type是application/x-www-form-urlencoded，那么不需要加任何注解
      */
     @PostMapping("/save")
-    public CommonResp save(@RequestBody EbookSaveReq req) {
+    public CommonResp save(@Valid @RequestBody EbookSaveReq req) {
         CommonResp resp = new CommonResp();
         ebookService.save(req);
         return resp;
