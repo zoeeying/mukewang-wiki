@@ -42,6 +42,7 @@
 
         <!-- domainObjectName可以省略 -->
         <!-- <table tableName="demo" domainObjectName="Demo"/> -->
-        <table tableName="ebook"/>
+        <!-- <table tableName="ebook"/>-->
+        <table tableName="category"/>
     </context>
 </generatorConfiguration>
