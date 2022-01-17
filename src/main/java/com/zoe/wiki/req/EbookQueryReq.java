@@ -1,6 +1,7 @@
 package com.zoe.wiki.req;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
